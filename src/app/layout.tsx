@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { Big_Shoulders_Display, Spectral, Geist } from 'next/font/google'
+import { Big_Shoulders, Spectral, Geist } from 'next/font/google'
 import './globals.css'
 
-const bigShoulders = Big_Shoulders_Display({
+const bigShoulders = Big_Shoulders({
   subsets: ['latin'],
   weight: ['400', '700', '900'],
   variable: '--font-display',
