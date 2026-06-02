@@ -79,12 +79,14 @@ export const awards = [
     name: 'National Scholarship — Ministry of Education, P.R. China',
     nameZh: '国家奖学金 — 中华人民共和国教育部',
     level: 'National',
+    image: '/awards/national-scholarship.jpeg',
   },
   {
     year: '2025',
     name: 'Mathematical Contest in Modeling (MCM) — Finalist (Top 2% Worldwide)',
     nameZh: '美国大学生数学建模竞赛 — F 奖（全球前 2%）',
     level: 'International',
+    image: '/awards/mcm-finalist.png',
   },
 ]
 
