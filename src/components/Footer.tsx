@@ -8,7 +8,7 @@ export default function Footer() {
         Yuan Junhao
       </span>
       <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: '0.75rem', color: 'var(--muted)' }}>
-        <a href={`mailto:${person.email}`} style={{ color: 'inherit', textDecoration: 'none' }}>{person.email}</a>
+        <a href={`mailto:${person.emails[0].addr}`} style={{ color: 'inherit', textDecoration: 'none' }}>{person.emails[0].addr}</a>
         {' · '}Updated {year}
       </span>
     </footer>
