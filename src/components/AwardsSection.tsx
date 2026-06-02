@@ -11,6 +11,13 @@ const LEVEL_RANK: Record<string, number> = {
   University:    3,
 }
 
+const LEVEL_COLOR: Record<string, string> = {
+  International: 'var(--ink)',
+  National:      'var(--red)',
+  Provincial:    'oklch(0.50 0.10 60)',
+  University:    'oklch(0.48 0.06 220)',
+}
+
 const sortedAwards = [...awards].sort((a, b) => {
   const levelDiff = (LEVEL_RANK[a.level] ?? 99) - (LEVEL_RANK[b.level] ?? 99)
   if (levelDiff !== 0) return levelDiff
@@ -124,7 +131,7 @@ export default function AwardsSection() {
               <span style={{
                 fontFamily: 'var(--font-display)', fontSize: '0.625rem', fontWeight: 700,
                 letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff',
-                background: a.level === 'International' ? 'var(--ink)' : 'var(--red)',
+                background: LEVEL_COLOR[a.level] ?? 'var(--muted)',
                 padding: '3px 9px', borderRadius: 2, flexShrink: 0, marginTop: 2,
               }}>
                 {a.level}
