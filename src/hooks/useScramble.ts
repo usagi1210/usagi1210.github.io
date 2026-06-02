@@ -4,7 +4,8 @@ import { useCallback, useRef } from 'react'
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&'
 
 export function useScramble(interval = 55) {
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  // Track all active intervals so cancel() can clean them all up
+  const activeIds = useRef<Set<ReturnType<typeof setInterval>>>(new Set())
 
   const scramble = useCallback(
     (el: HTMLElement | null, target: string, startDelay = 0) => {
@@ -12,6 +13,8 @@ export function useScramble(interval = 55) {
       const len = target.length
       let frame = 0
       const total = len * 6
+      // Each call owns its own id in closure — no shared ref collision
+      let id: ReturnType<typeof setInterval>
 
       const run = () => {
         let out = ''
@@ -27,19 +30,22 @@ export function useScramble(interval = 55) {
         el.innerHTML = out
         frame++
         if (frame > total + 4) {
-          if (timerRef.current) clearInterval(timerRef.current)
+          clearInterval(id)
+          activeIds.current.delete(id)
         }
       }
 
       setTimeout(() => {
-        timerRef.current = setInterval(run, interval)
+        id = setInterval(run, interval)
+        activeIds.current.add(id)
       }, startDelay)
     },
     [interval]
   )
 
   const cancel = useCallback(() => {
-    if (timerRef.current) clearInterval(timerRef.current)
+    activeIds.current.forEach(id => clearInterval(id))
+    activeIds.current.clear()
   }, [])
 
   return { scramble, cancel }
