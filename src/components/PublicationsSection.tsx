@@ -42,15 +42,22 @@ export default function PublicationsSection() {
             </p>
 
             <div style={{ display: 'flex', gap: 16 }}>
-              {Object.entries(pub.links).map(([key, href]) => (
-                <a
-                  key={key}
-                  href={href}
-                  style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 500, color: 'var(--muted)', textDecoration: 'none', textTransform: 'capitalize', transition: 'color 0.2s' }}
-                >
-                  {key === 'bibtex' ? 'BibTeX' : key.charAt(0).toUpperCase() + key.slice(1)}
-                </a>
-              ))}
+              {Object.entries(pub.links)
+                .filter(([, href]) => href !== '#')
+                .map(([key, href]) => (
+                  <a
+                    key={key}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 500, color: 'var(--muted)', textDecoration: 'none', textTransform: 'capitalize', transition: 'color 0.2s' }}
+                  >
+                    {key === 'bibtex' ? 'BibTeX'
+                      : key === 'sciencedirect' ? 'ScienceDirect'
+                      : key === 'paper' ? 'DOI'
+                      : key.charAt(0).toUpperCase() + key.slice(1)}
+                  </a>
+                ))}
             </div>
           </div>
         ))}

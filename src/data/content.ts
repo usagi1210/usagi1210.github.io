@@ -60,14 +60,14 @@ export const interests = [
 
 export const publications = [
   {
-    venue: 'CVPR 2024',
-    title: 'Full Title of the Paper: A Subtitle Explaining the Core Contribution',
-    authors: ['First Author', 'Second Author', 'Third Author', 'Fourth Author', 'Yuan Junhao'],
-    selfAuthor: 'Yuan Junhao',
+    venue: 'Optics & Laser Technology · 2025',
+    title: 'Degradation-learning spatial-sparsity transformation unfolding network for reflective spectral compressive imaging',
+    authors: ['Ji Xu', 'Ping Xu', 'Wenjie Zhu', 'Yicheng Feng', 'Junhao Yuan'],
+    selfAuthor: 'Junhao Yuan',
     links: {
-      paper: '#',
+      paper: 'https://doi.org/10.1016/j.optlastec.2025.113639',
+      sciencedirect: 'https://www.sciencedirect.com/science/article/pii/S0030399225012307',
       code: '#',
-      project: '#',
       bibtex: '#',
     },
   },
