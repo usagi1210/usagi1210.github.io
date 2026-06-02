@@ -22,8 +22,8 @@ export default function Home() {
       <Hero />
       <StatsRow />
       <Marquee />
-      <ResearchSection />
       <EducationSection />
+      <ResearchSection />
       <PublicationsSection />
       <AwardsSection />
       <ProjectsSection />

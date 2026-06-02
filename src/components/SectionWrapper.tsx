@@ -16,7 +16,7 @@ export default function SectionWrapper({ id, label, sublabel, children }: Props)
       variants={clipReveal}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.06 }}
+      viewport={{ once: true, amount: 0 }}
       style={{ maxWidth: 1080, margin: '0 auto', padding: '64px 52px', borderTop: '1px solid var(--rule)' }}
     >
       <div data-section-grid style={{ display: 'grid', gridTemplateColumns: '170px 1fr', gap: 48, alignItems: 'start' }}>

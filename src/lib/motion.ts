@@ -18,10 +18,11 @@ export const fadeIn: Variants = {
 }
 
 export const clipReveal: Variants = {
-  hidden:  { clipPath: 'inset(0 0 100% 0)' },
+  hidden:  { opacity: 0, y: 32 },
   visible: {
-    clipPath: 'inset(0 0 0% 0)',
-    transition: { duration: 0.8, ease: [0.2, 0, 0, 1], type: 'tween' },
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.2, 0, 0, 1], type: 'tween' },
   },
 }
 

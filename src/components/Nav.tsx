@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useScrollspy } from '@/hooks/useScrollspy'
 import { fadeIn } from '@/lib/motion'
 
-const NAV_SECTIONS = ['research', 'education', 'pubs', 'projects', 'awards']
+const NAV_SECTIONS = ['education', 'research', 'pubs', 'projects', 'awards']
 const NAV_LABELS: Record<string, string> = {
   research:  'Research',
   education: 'Education',
