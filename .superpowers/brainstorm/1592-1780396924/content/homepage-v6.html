@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage v6 — Yuan Junhao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  /* Warm off-white — just enough to feel like quality paper, not cream */
+  --bg:       oklch(0.972 0.009 55);
+  --ink:      oklch(0.11  0.000 0);
+  --red:      oklch(0.50  0.195 7);
+  --red-hi:   oklch(0.42  0.180 7);
+  --red-lo:   oklch(0.50  0.195 7 / 0.08);
+  --muted:    oklch(0.50  0.000 0);
+  --rule:     oklch(0.86  0.004 55);
+  --surface:  oklch(0.960 0.010 55);
+  --display:  'Barlow Condensed', Impact, sans-serif;
+  --serif:    'Spectral', Georgia, serif;
+  --sans:     'Geist', system-ui, sans-serif;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:none } }
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+@keyframes growX  { from { transform:scaleX(0); transform-origin:left } to { transform:scaleX(1); transform-origin:left } }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 80;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: oklch(0.972 0.009 55 / 0.90);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; animation: fadeIn 0.5s ease both; animation-delay: 0.85s;
+}
+.nav-mark {
+  font-family: var(--display); font-weight: 700;
+  font-size: 1.0625rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink);
+}
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; position: relative; padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: var(--red); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 48px 64px;
+  max-width: 1100px; margin: 0 auto;
+  position: relative;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.5s ease both; animation-delay: 0.1s;
+}
+.hero-eyebrow::before {
+  content: ''; display: inline-block; width: 20px; height: 1px;
+  background: var(--red); flex-shrink: 0;
+  animation: growX 0.4s ease both; animation-delay: 0.12s;
+}
+
+/* ── MAIN DISPLAY TYPE — the centrepiece ── */
+.hero-display {
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 13vw, 10.5rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+/* "Hi, I'm" — black, but slightly lighter weight for contrast */
+.hero-display .d-intro {
+  display: block; color: var(--ink); font-weight: 700;
+  font-size: 0.55em;       /* smaller than name — creates scale hierarchy */
+  letter-spacing: 0.01em;
+  opacity: 0; animation: fadeUp 0.65s cubic-bezier(.15,0,0,1) both; animation-delay: 0.22s;
+}
+/* "YUAN" — full weight, black */
+.hero-display .d-first {
+  display: block; color: var(--ink);
+  opacity: 0; animation: fadeUp 0.7s cubic-bezier(.15,0,0,1) both; animation-delay: 0.38s;
+}
+/* "JUNHAO." — full weight, RED — the reference contrast moment */
+.hero-display .d-last {
+  display: block; color: var(--red);
+  opacity: 0; animation: fadeUp 0.7s cubic-bezier(.15,0,0,1) both; animation-delay: 0.54s;
+}
+
+/* Subtitle row — Spectral italic, thin — weight contrast against display */
+.hero-subtitle {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.375rem);
+  color: var(--muted); letter-spacing: 0.01em; line-height: 1.5;
+  margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.6s ease both; animation-delay: 0.68s;
+}
+
+.hero-rule {
+  width: 40px; height: 1px; background: var(--rule); margin-bottom: 22px;
+  opacity: 0; animation: fadeIn 0.4s ease both; animation-delay: 0.76s;
+}
+
+/* Body — Geist light, small — maximum contrast against the display above */
+.hero-bio {
+  font-size: 0.9375rem; font-weight: 300; line-height: 1.82;
+  color: var(--ink); max-width: 50ch; margin-bottom: 32px;
+  opacity: 0; animation: fadeUp 0.55s ease both; animation-delay: 0.82s;
+}
+.hero-bio strong { font-weight: 500; }
+.hero-bio em { font-style: italic; }
+
+.hero-ctas {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.5s ease both; animation-delay: 0.94s;
+}
+.btn-filled {
+  padding: 11px 22px; background: var(--red); color: #fff;
+  font-family: var(--sans); font-size: 0.8125rem; font-weight: 600;
+  border: none; border-radius: 2px; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.btn-filled:hover { background: var(--red-hi); transform: translateY(-2px); }
+.btn-lined {
+  padding: 10px 20px; background: transparent; color: var(--ink);
+  font-family: var(--sans); font-size: 0.8125rem; font-weight: 400;
+  border: 1px solid var(--rule); border-radius: 2px; text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.btn-lined:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+/* ── SECTIONS ── */
+.sec {
+  max-width: 1100px; margin: 0 auto;
+  padding: 64px 48px;
+  border-top: 1px solid var(--rule);
+}
+
+/* Two-column: narrow label | wide content */
+.sc { display: grid; grid-template-columns: 170px 1fr; gap: 48px; align-items: start; }
+@media(max-width:620px){ .sc { grid-template-columns:1fr; gap:20px; } }
+
+/* Section label — display font bold for contrast against light body */
+.sl {
+  font-family: var(--display); font-weight: 700; font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+  line-height: 1.4; padding-top: 3px;
+}
+.sl small {
+  display: block; font-family: var(--sans); font-weight: 300;
+  font-size: 0.6875rem; letter-spacing: 0.02em; text-transform: none;
+  color: var(--muted); margin-top: 4px;
+}
+
+/* ── RESEARCH ── */
+.int-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+}
+.ic { background: var(--bg); padding: 20px 22px; transition: background 0.18s; cursor: default; }
+.ic:hover { background: var(--red-lo); }
+/* Display-font name for weight contrast */
+.ic-name {
+  font-family: var(--display); font-weight: 700; font-size: 1rem;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 6px; transition: color 0.18s;
+}
+.ic:hover .ic-name { color: var(--red); }
+.ic-sub { font-size: 0.8125rem; font-weight: 300; color: var(--muted); line-height: 1.65; }
+
+/* ── PUBLICATIONS ── */
+.pub {
+  padding: 28px 0; border-bottom: 1px solid var(--rule);
+  position: relative;
+  transition: padding-left 0.25s cubic-bezier(.4,0,.2,1);
+}
+.pub:hover { padding-left: 16px; }
+.pub::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--red); transform: scaleY(0); transform-origin: top;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.pub:hover::before { transform: scaleY(1); }
+.pub-venue {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.625rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 9px;
+}
+.pub-venue::before { content: ''; display: inline-block; width: 10px; height: 1.5px; background: currentColor; }
+/* Spectral serif title — heavier than the author line */
+.pub-title {
+  font-family: var(--serif); font-weight: 600; font-size: 1.125rem;
+  letter-spacing: -0.015em; line-height: 1.42; color: var(--ink);
+  margin-bottom: 8px; transition: color 0.2s;
+}
+.pub:hover .pub-title { color: var(--red); }
+.pub-authors { font-size: 0.8125rem; font-weight: 300; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+.pub-authors b { color: var(--ink); font-weight: 600; }
+.pub-links { display: flex; gap: 16px; }
+.pub-a {
+  font-size: 0.75rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; position: relative; padding-bottom: 1px; transition: color 0.2s;
+}
+.pub-a::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.2s;
+}
+.pub-a:hover { color: var(--red); }
+.pub-a:hover::after { transform: scaleX(1); }
+
+/* ── AWARDS ── */
+.award {
+  display: flex; align-items: baseline; gap: 16px; padding: 15px 0;
+  border-bottom: 1px solid var(--rule); cursor: default;
+  transition: padding-left 0.2s;
+}
+.award:hover { padding-left: 8px; }
+.award-yr { font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; width: 36px; flex-shrink: 0; }
+.award-name {
+  font-family: var(--serif); font-size: 0.9375rem; font-weight: 400;
+  color: var(--ink); flex: 1; line-height: 1.4; transition: color 0.2s;
+}
+.award:hover .award-name { color: var(--red); }
+.award-pill {
+  font-family: var(--display); font-size: 0.625rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: var(--red); padding: 3px 9px; border-radius: 2px; flex-shrink: 0;
+}
+
+/* ── PROJECTS ── */
+.proj {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+  padding: 22px 0; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: inherit; transition: padding-left 0.2s;
+}
+.proj:hover { padding-left: 10px; }
+.proj-name {
+  font-family: var(--serif); font-size: 1rem; font-weight: 600;
+  letter-spacing: -0.01em; color: var(--ink); margin-bottom: 5px; transition: color 0.2s;
+}
+.proj:hover .proj-name { color: var(--red); }
+.proj-desc { font-size: 0.8125rem; font-weight: 300; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.proj-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.ptag { font-size: 0.6875rem; color: var(--muted); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 2px; }
+.proj-arr { font-size: 1rem; color: oklch(0.80 0 0); align-self: center; flex-shrink: 0; transition: transform 0.2s, color 0.2s; }
+.proj:hover .proj-arr { transform: translate(3px,-3px); color: var(--red); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s cubic-bezier(.2,0,0,1), transform 0.65s cubic-bezier(.2,0,0,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 3px solid var(--ink);
+  max-width: 1100px; margin: 0 auto;
+  padding: 24px 48px 48px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.ft-name { font-family: var(--display); font-weight: 700; font-size: 0.9375rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); }
+.ft-meta { font-size: 0.75rem; font-weight: 300; color: var(--muted); }
+
+/* ── CHOICE BAR ── */
+.cbar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: oklch(0.10 0 0); padding: 12px 48px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-family: var(--sans); font-size: 0.8125rem;
+  border-top: 1px solid oklch(0.20 0 0); transition: opacity 0.3s;
+}
+.cbar p { color: oklch(0.52 0 0); line-height: 1.5; }
+.cbar-btns { display: flex; gap: 8px; flex-shrink: 0; }
+.cb { padding: 8px 16px; font-family: var(--sans); font-size: 0.8125rem; font-weight: 500; border: none; border-radius: 2px; cursor: pointer; transition: background 0.15s; }
+.cb-yes { background: var(--red); color: #fff; }
+.cb-yes:hover { background: var(--red-hi); }
+.cb-no  { background: oklch(0.22 0 0); color: oklch(0.65 0 0); }
+.cb-no:hover  { background: oklch(0.28 0 0); }
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  .reveal { opacity:1 !important; transform:none !important; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-mark">Yuan Junhao</span>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#pubs">Publications</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Computer Vision · Computational Imaging · Class of 2026</p>
+
+  <!-- The reference contrast: "Hi, I'm" small-ish → "YUAN" big black → "JUNHAO." big red -->
+  <div class="hero-display">
+    <span class="d-intro">Hi, I'm</span>
+    <span class="d-first">Yuan</span>
+    <span class="d-last">Junhao.</span>
+  </div>
+
+  <p class="hero-subtitle">Undergraduate researcher · Intelligent Science &amp; Technology</p>
+
+  <div class="hero-rule"></div>
+
+  <p class="hero-bio">
+    I study how cameras and algorithms can be <em>co-designed</em>
+    to capture and understand the visual world more faithfully.
+    Currently working on <strong>neural scene representations</strong>,
+    low-level restoration, and the physics of imaging systems.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#" class="btn-filled">Download CV</a>
+    <a href="#" class="btn-lined">GitHub ↗</a>
+    <a href="#" class="btn-lined">Google Scholar ↗</a>
+    <a href="#" class="btn-lined">Email</a>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<div id="research" class="sec reveal">
+  <div class="sc">
+    <div class="sl">Research<br>Interests<small>4 areas</small></div>
+    <div class="int-grid">
+      <div class="ic">
+        <div class="ic-name">Computational Imaging</div>
+        <div class="ic-sub">Rethinking the optical–digital pipeline; coded apertures, event cameras, single-photon sensing.</div>
+      </div>
+      <div class="ic">
+        <div class="ic-name">Neural Scene Representation</div>
+        <div class="ic-sub">NeRF and 3D Gaussian Splatting for photorealistic synthesis and physical reasoning.</div>
+      </div>
+      <div class="ic">
+        <div class="ic-name">Low-level Vision</div>
+        <div class="ic-sub">Image restoration, deblurring, HDR reconstruction under real-world degradations.</div>
+      </div>
+      <div class="ic">
+        <div class="ic-name">Vision Geometry</div>
+        <div class="ic-sub">Geometry-aware architectures; robustness across imaging conditions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div id="pubs" class="sec reveal">
+  <div class="sc">
+    <div class="sl">Publications<small>1 paper</small></div>
+    <div>
+      <div class="pub">
+        <div class="pub-venue">CVPR / ECCV 2024</div>
+        <h3 class="pub-title">Full Title of the Paper: A Subtitle Explaining the Core Contribution to Computational Imaging</h3>
+        <p class="pub-authors">First Author · Second Author · Third Author · Fourth Author · <b>Yuan Junhao</b></p>
+        <div class="pub-links">
+          <a href="#" class="pub-a">Paper</a>
+          <a href="#" class="pub-a">Code</a>
+          <a href="#" class="pub-a">Project Page</a>
+          <a href="#" class="pub-a">BibTeX</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div id="awards" class="sec reveal">
+  <div class="sc">
+    <div class="sl">Awards<small>National level</small></div>
+    <div>
+      <div class="award"><span class="award-yr">2024</span><span class="award-name">First Award Name — Competition or Program Title</span><span class="award-pill">National</span></div>
+      <div class="award"><span class="award-yr">2023</span><span class="award-name">Second Award Name — Competition Title</span><span class="award-pill">National</span></div>
+      <div class="award"><span class="award-yr">2023</span><span class="award-name">Third Award Name</span><span class="award-pill">National</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="sec reveal">
+  <div class="sc">
+    <div class="sl">Projects<small>GitHub</small></div>
+    <div>
+      <a class="proj" href="#">
+        <div>
+          <div class="proj-name">Project Alpha</div>
+          <p class="proj-desc">One sharp sentence on what this project does and why it matters in the CV research context.</p>
+          <div class="proj-tags"><span class="ptag">PyTorch</span><span class="ptag">NeRF</span><span class="ptag">In Progress</span></div>
+        </div>
+        <span class="proj-arr">↗</span>
+      </a>
+      <a class="proj" href="#">
+        <div>
+          <div class="proj-name">Project Beta</div>
+          <p class="proj-desc">One sharp sentence on what this project does.</p>
+          <div class="proj-tags"><span class="ptag">CUDA</span><span class="ptag">OpenCV</span></div>
+        </div>
+        <span class="proj-arr">↗</span>
+      </a>
+      <a class="proj" href="#">
+        <div>
+          <div class="proj-name">Computational Photography — Course Project</div>
+          <p class="proj-desc">Notable coursework project description.</p>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">NumPy</span></div>
+        </div>
+        <span class="proj-arr">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="ft-name">Yuan Junhao</span>
+  <span class="ft-meta">yuanjunhao@university.edu · Updated June 2026</span>
+</footer>
+
+<div class="cbar" id="cbar">
+  <p>v6 · Barlow Condensed 900 大字 · "Hi, I'm" 小 → "YUAN" 黑 → "JUNHAO." 红 · 微暖背景 · 向下滚动查看全页</p>
+  <div class="cbar-btns">
+    <button class="cb cb-yes" onclick="pick('approve')">这个方向对了 ✓</button>
+    <button class="cb cb-no"  onclick="pick('adjust')">继续调整</button>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.reveal').forEach(el => {
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) e.target.classList.add('in');
+  }, { threshold: 0.08 }).observe(el);
+});
+function pick(v) {
+  document.getElementById('cbar').style.opacity = '0.4';
+  if (window.__superpowers_select) window.__superpowers_select(v);
+}
+</script>
+</body>
+</html>

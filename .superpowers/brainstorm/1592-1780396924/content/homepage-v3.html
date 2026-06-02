@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage v3 — Yuan Junhao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,600;1,200;1,300;1,600&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       oklch(1.000 0.000 0);
+  --dark:     oklch(0.095 0.010 7);
+  --dark-2:   oklch(0.13  0.010 7);
+  --ink:      oklch(0.12  0.012 7);
+  --red:      oklch(0.52  0.195 7);
+  --red-lo:   oklch(0.52  0.195 7 / 0.12);
+  --white:    oklch(0.97  0.003 7);
+  --muted:    oklch(0.52  0.006 7);
+  --muted-dk: oklch(0.58  0.008 7);
+  --rule:     oklch(0.88  0.003 7);
+  --rule-dk:  oklch(0.20  0.008 7);
+  --serif: 'Spectral', Georgia, serif;
+  --sans:  'Geist', system-ui, sans-serif;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(22px) } to { opacity:1; transform:none } }
+@keyframes fadeIn   { from { opacity:0 } to { opacity:1 } }
+@keyframes growX    { from { transform:scaleX(0) } to { transform:scaleX(1) } }
+@keyframes growY    { from { transform:scaleY(0) } to { transform:scaleY(1) } }
+@keyframes ticker   {
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) }
+}
+
+/* ── STICKY NAV (colour-shifts as user scrolls from dark to light) ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:80;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  transition: background 0.4s, border-color 0.4s;
+  border-bottom: 1px solid transparent;
+}
+nav.on-dark {
+  background: transparent;
+  border-color: var(--rule-dk);
+}
+nav.on-light {
+  background: oklch(1 0 0 / 0.93);
+  backdrop-filter: blur(14px);
+  border-color: var(--rule);
+}
+.nav-name {
+  font-family: var(--serif);
+  font-size: 0.9375rem; font-weight: 300;
+  transition: color 0.4s;
+}
+nav.on-dark  .nav-name { color: var(--white); }
+nav.on-light .nav-name { color: var(--ink); }
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a {
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; position: relative; padding-bottom: 2px;
+  transition: color 0.2s;
+}
+nav.on-dark  .nav-links a { color: var(--muted-dk); }
+nav.on-light .nav-links a { color: var(--muted); }
+nav.on-dark  .nav-links a:hover { color: var(--white); }
+nav.on-light .nav-links a:hover { color: var(--red); }
+.nav-links a::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0; height:1px;
+  background: currentColor; transform:scaleX(0); transform-origin:left;
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover::after { transform:scaleX(1); }
+
+/* ── HERO (dark) ── */
+.hero {
+  background: var(--dark);
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+/* subtle dot-grid texture */
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image: radial-gradient(circle, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events:none;
+}
+.hero-inner {
+  display: flex; flex-direction:column; justify-content: center;
+  padding-top: 100px; padding-bottom: 60px;
+  max-width: 860px;
+  position: relative;
+}
+
+/* Oversized background field label */
+.hero-field-bg {
+  position: absolute;
+  bottom: -20px; right: -60px;
+  font-family: var(--serif);
+  font-size: clamp(100px, 16vw, 160px);
+  font-weight: 200; font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px oklch(1 0 0 / 0.06);
+  line-height: 1; pointer-events:none; user-select:none;
+  white-space: nowrap;
+  opacity:0; animation: fadeIn 1.6s ease both; animation-delay: 0.3s;
+}
+
+.hero-eyebrow {
+  font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px;
+  opacity:0; animation: fadeUp 0.5s ease both; animation-delay: 0.1s;
+}
+.hero-eyebrow::before {
+  content:''; display:inline-block; width:20px; height:1px;
+  background: var(--red);
+  transform-origin: left;
+  animation: growX 0.4s ease both; animation-delay: 0.15s;
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 300;
+  color: oklch(0.72 0.005 7);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  opacity:0; animation: fadeUp 0.6s ease both; animation-delay: 0.2s;
+}
+.hero-field {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6.5vw, 5.25rem);
+  font-weight: 200;
+  color: var(--white);
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  text-wrap: balance;
+  margin-bottom: 36px;
+}
+.hero-field .line1 {
+  display:block;
+  opacity:0; animation: fadeUp 0.7s cubic-bezier(.2,0,0,1) both; animation-delay: 0.3s;
+}
+.hero-field .line2 {
+  display:block; font-style:italic; color: var(--red);
+  opacity:0; animation: fadeUp 0.7s cubic-bezier(.2,0,0,1) both; animation-delay: 0.46s;
+}
+.hero-field .line3 {
+  display:block;
+  opacity:0; animation: fadeUp 0.7s cubic-bezier(.2,0,0,1) both; animation-delay: 0.62s;
+}
+
+.hero-bio {
+  font-size: 0.9375rem; font-weight: 300; line-height: 1.8;
+  color: var(--muted-dk);
+  max-width: 52ch; margin-bottom: 32px;
+  opacity:0; animation: fadeUp 0.6s ease both; animation-delay: 0.78s;
+}
+.hero-bio strong { color: var(--white); font-weight: 400; }
+.hero-bio em { font-style: italic; }
+
+.hero-actions {
+  display:flex; gap:8px; flex-wrap:wrap;
+  opacity:0; animation: fadeUp 0.5s ease both; animation-delay: 0.92s;
+}
+.btn-red {
+  padding: 10px 22px;
+  background: var(--red); color: #fff;
+  font-family: var(--sans); font-size: 0.8125rem; font-weight: 500;
+  border:none; border-radius:2px; text-decoration:none;
+  transition: background 0.2s, transform 0.15s;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.btn-red:hover { background: oklch(0.42 0.18 7); transform: translateY(-2px); }
+.btn-dk {
+  padding: 9px 20px;
+  background: transparent; color: oklch(0.70 0.004 7);
+  font-family: var(--sans); font-size: 0.8125rem; font-weight: 400;
+  border: 1px solid var(--rule-dk); border-radius:2px; text-decoration:none;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  display:inline-flex; align-items:center; gap:5px;
+}
+.btn-dk:hover { border-color: oklch(0.45 0.005 7); color: var(--white); transform: translateY(-2px); }
+
+/* scroll hint */
+.hero-scroll {
+  display: flex; align-items: center; gap: 10px;
+  padding: 20px 0 28px;
+  font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: oklch(0.35 0.006 7);
+  opacity:0; animation: fadeIn 0.8s ease both; animation-delay: 1.1s;
+}
+.scroll-line {
+  width: 32px; height: 1px;
+  background: oklch(0.25 0.006 7);
+  position: relative; overflow:hidden;
+}
+.scroll-line::after {
+  content:''; position:absolute; inset:0;
+  background: oklch(0.50 0.006 7);
+  animation: growX 1.5s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+/* ── TICKER BAND (between hero and content) ── */
+.ticker-band {
+  background: var(--red);
+  padding: 9px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 18s linear infinite;
+}
+.ticker-text {
+  display: inline-block;
+  font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: #fff; padding: 0 32px;
+}
+.ticker-sep { color: oklch(1 0 0 / 0.4); }
+
+/* ── LIGHT SECTIONS ── */
+.section-wrap {
+  max-width: 920px; margin: 0 auto;
+  padding: 72px 48px;
+  border-top: 1px solid var(--rule);
+}
+.section-wrap:first-of-type { border-top: none; }
+
+.section-layout {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 48px; align-items: start;
+}
+@media(max-width:640px){ .section-layout { grid-template-columns:1fr; } }
+
+.sec-label {
+  font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); padding-top: 3px;
+}
+.sec-label::after {
+  content:''; display:block; width:16px; height:2px;
+  background: var(--red); margin-top: 8px;
+  transform-origin: left;
+  transition: width 0.3s ease;
+}
+.section-wrap:hover .sec-label::after { width: 32px; }
+
+/* ── INTERESTS ── */
+.interest-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+}
+.ic {
+  background: var(--bg); padding: 20px 22px;
+  transition: background 0.18s;
+}
+.ic:hover { background: var(--red-lo); }
+.ic-name {
+  font-family: var(--serif);
+  font-size: 0.9375rem; font-weight: 500;
+  color: var(--ink); margin-bottom: 5px;
+  transition: color 0.18s;
+}
+.ic:hover .ic-name { color: var(--red); }
+.ic-sub { font-size: 0.8125rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+/* ── PUBLICATIONS ── */
+.pub {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative; overflow: hidden;
+}
+.pub::after {
+  content: '';
+  position: absolute; left: -24px; top: 0; bottom: 0; width: 3px;
+  background: var(--red);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.pub:hover::after { transform: scaleY(1); }
+.pub-tag {
+  font-size: 0.625rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 9px;
+  display: flex; align-items: center; gap: 8px;
+}
+.pub-tag::before { content:''; display:inline-block; width:12px; height:1px; background:var(--red); }
+.pub-h {
+  font-family: var(--serif);
+  font-size: 1.125rem; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.45;
+  color: var(--ink); margin-bottom: 8px;
+  transition: color 0.2s;
+}
+.pub:hover .pub-h { color: var(--red); }
+.pub-authors { font-size: 0.8125rem; color: var(--muted); margin-bottom: 14px; font-weight: 300; line-height: 1.5; }
+.pub-authors b { color: var(--ink); font-weight: 500; }
+.pub-links { display:flex; gap:16px; }
+.pub-a {
+  font-size: 0.75rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; position: relative; padding-bottom: 1px;
+  transition: color 0.2s;
+}
+.pub-a::after {
+  content:''; position:absolute; bottom:-1px; left:0; right:0; height:1px;
+  background:currentColor; transform:scaleX(0); transform-origin:left;
+  transition: transform 0.2s;
+}
+.pub-a:hover { color: var(--red); }
+.pub-a:hover::after { transform:scaleX(1); }
+
+/* ── AWARDS ── */
+.award {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: padding-left 0.2s;
+  cursor: default;
+}
+.award:hover { padding-left: 8px; }
+.award-yr { font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; flex-shrink:0; width:38px; }
+.award-nm {
+  font-family: var(--serif); font-size: 0.9375rem; font-weight: 400;
+  color: var(--ink); flex:1; line-height: 1.4;
+  transition: color 0.2s;
+}
+.award:hover .award-nm { color: var(--red); }
+.award-pill {
+  font-size: 0.5875rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: var(--red);
+  padding: 2px 8px; border-radius: 2px; flex-shrink:0;
+}
+
+/* ── PROJECTS ── */
+.proj {
+  display: flex; align-items: flex-start; justify-content: space-between; gap:20px;
+  padding: 22px 0; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color:inherit;
+}
+.proj-name-wrap { display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.proj-name {
+  font-family: var(--serif); font-size: 1rem; font-weight: 500;
+  letter-spacing: -0.01em; color: var(--ink);
+  transition: color 0.2s;
+}
+.proj:hover .proj-name { color: var(--red); }
+.proj-desc { font-size: 0.8125rem; color: var(--muted); line-height: 1.6; margin-bottom: 10px; font-weight: 300; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.ptag {
+  font-size: 0.6875rem; color: var(--muted);
+  border: 1px solid var(--rule); padding: 2px 8px; border-radius:2px;
+}
+.proj-arr {
+  font-size: 1.125rem; color: var(--muted);
+  align-self: center; flex-shrink:0;
+  transition: transform 0.2s, color 0.2s;
+}
+.proj:hover .proj-arr { transform: translate(3px,-3px); color: var(--red); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity:0; transform:translateY(28px); transition: opacity 0.65s cubic-bezier(.2,0,0,1), transform 0.65s cubic-bezier(.2,0,0,1); }
+.reveal.in { opacity:1; transform:none; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--dark);
+  padding: 40px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-l {
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.9375rem; color: oklch(0.55 0.005 7);
+}
+.footer-r { font-size: 0.75rem; color: oklch(0.38 0.005 7); }
+
+/* ── CHOICE BAR ── */
+.cbar {
+  position: fixed; bottom:0; left:0; right:0; z-index:200;
+  background: oklch(0.09 0.012 7);
+  padding: 13px 48px;
+  display: flex; align-items:center; justify-content:space-between; gap:16px;
+  font-family: var(--sans); font-size: 0.8125rem;
+  border-top: 1px solid oklch(0.20 0.008 7);
+  transition: opacity 0.3s;
+}
+.cbar p { color: oklch(0.60 0.005 7); max-width: 520px; line-height: 1.5; }
+.cbar-btns { display:flex; gap:8px; flex-shrink:0; }
+.cb { padding: 8px 16px; font-family: var(--sans); font-size: 0.8125rem; font-weight:500; border:none; border-radius:2px; cursor:pointer; transition: background 0.15s; }
+.cb-yes { background: var(--red); color:#fff; }
+.cb-yes:hover { background: oklch(0.42 0.18 7); }
+.cb-alt { background: oklch(0.22 0.006 7); color: oklch(0.75 0 0); }
+.cb-alt:hover { background: oklch(0.28 0.006 7); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  .reveal { opacity:1 !important; transform:none !important; }
+  .ticker-inner { animation:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="on-dark" id="nav">
+  <span class="nav-name">Yuan Junhao</span>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#">CV ↓</a></li>
+  </ul>
+</nav>
+
+<!-- HERO (dark) -->
+<section class="hero" id="hero-section">
+  <div class="hero-field-bg">Imaging</div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Intelligent Science &amp; Technology · Class of 2026</p>
+
+    <p class="hero-name">Yuan Junhao &nbsp;/&nbsp; 袁俊豪</p>
+
+    <h1 class="hero-field">
+      <span class="line1">Computer</span>
+      <span class="line2">Vision &amp;</span>
+      <span class="line3">Computational Imaging</span>
+    </h1>
+
+    <p class="hero-bio">
+      I study how cameras and algorithms can be <em>co-designed</em> to capture
+      and understand the visual world more faithfully. Currently exploring
+      <strong>neural scene representations</strong>, low-level restoration,
+      and the physics of imaging systems.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-red">Download CV</a>
+      <a href="#" class="btn-dk">GitHub ↗</a>
+      <a href="#" class="btn-dk">Google Scholar ↗</a>
+      <a href="#" class="btn-dk">Email</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    Scroll
+  </div>
+</section>
+
+<!-- RED TICKER BAND -->
+<div class="ticker-band">
+  <div class="ticker-inner">
+    <span class="ticker-text">Computer Vision <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Computational Imaging <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Neural Scene Representation <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Low-level Vision <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Intelligent Science &amp; Technology <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Computer Vision <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Computational Imaging <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Neural Scene Representation <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Low-level Vision <span class="ticker-sep">✦</span></span>
+    <span class="ticker-text">Intelligent Science &amp; Technology <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- RESEARCH INTERESTS -->
+<div id="research" class="section-wrap reveal">
+  <div class="section-layout">
+    <div class="sec-label">Research Interests</div>
+    <div class="interest-grid">
+      <div class="ic">
+        <div class="ic-name">Computational Imaging</div>
+        <div class="ic-sub">Rethinking the optical–digital pipeline; coded apertures, event cameras, single-photon sensing.</div>
+      </div>
+      <div class="ic">
+        <div class="ic-name">Neural Scene Representation</div>
+        <div class="ic-sub">NeRF and 3D Gaussian Splatting for photorealistic synthesis and physical reasoning.</div>
+      </div>
+      <div class="ic">
+        <div class="ic-name">Low-level Vision</div>
+        <div class="ic-sub">Image restoration, deblurring, HDR reconstruction under real-world degradations.</div>
+      </div>
+      <div class="ic">
+        <div class="ic-name">Vision Geometry</div>
+        <div class="ic-sub">Geometry-aware architectures; robustness and generalization across imaging conditions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div id="publications" class="section-wrap reveal">
+  <div class="section-layout">
+    <div class="sec-label">Publications</div>
+    <div>
+      <div class="pub">
+        <div class="pub-tag">CVPR / ECCV 2024</div>
+        <h3 class="pub-h">Full Title of the Paper: A Subtitle Explaining the Core Contribution to Computational Imaging</h3>
+        <p class="pub-authors">First Author · Second Author · Third Author · Fourth Author · <b>Yuan Junhao</b></p>
+        <div class="pub-links">
+          <a href="#" class="pub-a">Paper</a>
+          <a href="#" class="pub-a">Code</a>
+          <a href="#" class="pub-a">Project Page</a>
+          <a href="#" class="pub-a">BibTeX</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div id="awards" class="section-wrap reveal">
+  <div class="section-layout">
+    <div class="sec-label">Awards</div>
+    <div>
+      <div class="award"><span class="award-yr">2024</span><span class="award-nm">First Award Name — Competition or Program Title</span><span class="award-pill">National</span></div>
+      <div class="award"><span class="award-yr">2023</span><span class="award-nm">Second Award Name — Competition Title</span><span class="award-pill">National</span></div>
+      <div class="award"><span class="award-yr">2023</span><span class="award-nm">Third Award Name</span><span class="award-pill">National</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="section-wrap reveal">
+  <div class="section-layout">
+    <div class="sec-label">Projects</div>
+    <div>
+      <a class="proj" href="#">
+        <div>
+          <div class="proj-name-wrap"><span class="proj-name">Project Alpha</span></div>
+          <p class="proj-desc">One sharp sentence on what this project does and why it matters in the CV research context.</p>
+          <div class="proj-tags"><span class="ptag">PyTorch</span><span class="ptag">NeRF</span><span class="ptag">In Progress</span></div>
+        </div>
+        <span class="proj-arr">↗</span>
+      </a>
+      <a class="proj" href="#">
+        <div>
+          <div class="proj-name-wrap"><span class="proj-name">Project Beta</span></div>
+          <p class="proj-desc">One sharp sentence on what this project does.</p>
+          <div class="proj-tags"><span class="ptag">CUDA</span><span class="ptag">OpenCV</span></div>
+        </div>
+        <span class="proj-arr">↗</span>
+      </a>
+      <a class="proj" href="#">
+        <div>
+          <div class="proj-name-wrap"><span class="proj-name">Computational Photography — Course Project</span></div>
+          <p class="proj-desc">Notable coursework description.</p>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">NumPy</span></div>
+        </div>
+        <span class="proj-arr">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER (dark) -->
+<footer class="footer">
+  <span class="footer-l">Yuan Junhao — yuanjunhao@university.edu</span>
+  <span class="footer-r">Updated June 2026</span>
+</footer>
+
+<!-- CHOICE BAR -->
+<div class="cbar" id="cbar">
+  <p>v3 · 深色 Hero + 红色 ticker 分割线 + 白色内容区 · 高对比，带导航颜色切换动画</p>
+  <div class="cbar-btns">
+    <button class="cb cb-yes" onclick="pick('approve')">这个方向对了 ✓</button>
+    <button class="cb cb-alt"  onclick="pick('adjust')">继续调整</button>
+  </div>
+</div>
+
+<script>
+/* Nav color switch on scroll */
+const nav = document.getElementById('nav');
+const heroEl = document.getElementById('hero-section');
+const io = new IntersectionObserver(([e]) => {
+  nav.className = e.isIntersecting ? 'on-dark' : 'on-light';
+}, { threshold: 0.05 });
+io.observe(heroEl);
+
+/* Scroll reveal */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+function pick(v) {
+  document.getElementById('cbar').style.opacity = '0.4';
+  if (window.__superpowers_select) window.__superpowers_select(v);
+}
+</script>
+</body>
+</html>
