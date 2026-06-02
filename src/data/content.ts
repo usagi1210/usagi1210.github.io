@@ -82,8 +82,8 @@ export const awards = [
   },
   {
     year: '2025',
-    name: 'Mathematical Contest in Modeling (MCM) — Finalist',
-    nameZh: '美国大学生数学建模竞赛 — F 奖',
+    name: 'Mathematical Contest in Modeling (MCM) — Finalist (Top 2% Worldwide)',
+    nameZh: '美国大学生数学建模竞赛 — F 奖（全球前 2%）',
     level: 'International',
   },
 ]
