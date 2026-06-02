@@ -18,6 +18,7 @@ export const education = [
     department: 'School of Engineering · SCI Lab',
     departmentZh: '工学院 · 感知与计算成像实验室',
     role: 'Visiting Student',
+    roleZh: '访问学生',
     current: true,
   },
   {
@@ -27,6 +28,7 @@ export const education = [
     department: 'School of Automation (College of Artificial Intelligence)',
     departmentZh: '自动化学院（人工智能学院）',
     role: 'B.Eng. in Intelligent Science & Technology',
+    roleZh: '智能科学与技术 本科',
     current: true,
   },
 ]

@@ -75,30 +75,56 @@ export default function EducationSection() {
                 )}
               </div>
 
-              <div
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.875rem',
-                  fontWeight: 300,
-                  color: 'var(--muted)',
-                  marginBottom: 2,
-                  lineHeight: 1.5,
-                }}
-              >
-                {edu.department}
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap', marginBottom: 2 }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.875rem',
+                    fontWeight: 300,
+                    color: 'var(--muted)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {edu.department}
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.8125rem',
+                    fontWeight: 300,
+                    color: 'var(--muted)',
+                    opacity: 0.7,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {edu.departmentZh}
+                </span>
               </div>
 
-              <div
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: '0.875rem',
-                  fontWeight: 400,
-                  fontStyle: 'italic',
-                  color: 'var(--ink)',
-                  lineHeight: 1.5,
-                }}
-              >
-                {edu.role}
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: '0.875rem',
+                    fontWeight: 400,
+                    fontStyle: 'italic',
+                    color: 'var(--ink)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {edu.role}
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '0.8125rem',
+                    fontWeight: 300,
+                    color: 'var(--muted)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {edu.roleZh}
+                </span>
               </div>
             </div>
           </div>
