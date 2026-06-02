@@ -36,7 +36,7 @@ export const education = [
 export const stats = [
   { value: 1,  label: 'Publication' },
   { value: 3,  label: 'National Awards' },
-  { value: 4,  label: 'Research Areas' },
+  { value: 0,  label: 'Projects' },
 ]
 
 export const interests = [
