@@ -4,7 +4,7 @@ import { awards } from '@/data/content'
 
 export default function AwardsSection() {
   return (
-    <SectionWrapper id="awards" label="Awards" sublabel="National level">
+    <SectionWrapper id="awards" label="Awards">
       <div>
         {awards.map((a, i) => (
           <div
@@ -19,7 +19,12 @@ export default function AwardsSection() {
             <span style={{ fontFamily: 'var(--font-serif)', fontSize: '0.9375rem', fontWeight: 400, flex: 1, lineHeight: 1.4, transition: 'color 0.2s' }}>
               {a.name}
             </span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.625rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff', background: 'var(--red)', padding: '3px 9px', borderRadius: 2, flexShrink: 0 }}>
+            <span style={{
+              fontFamily: 'var(--font-display)', fontSize: '0.625rem', fontWeight: 700,
+              letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff',
+              background: a.level === 'International' ? 'var(--ink)' : 'var(--red)',
+              padding: '3px 9px', borderRadius: 2, flexShrink: 0,
+            }}>
               {a.level}
             </span>
           </div>

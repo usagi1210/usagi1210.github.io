@@ -35,7 +35,7 @@ export const education = [
 
 export const stats = [
   { value: 1,  label: 'Publication' },
-  { value: 3,  label: 'National Awards' },
+  { value: 2,  label: 'Awards' },
   { value: 0,  label: 'Projects' },
 ]
 
@@ -74,9 +74,8 @@ export const publications = [
 ]
 
 export const awards = [
-  { year: '2024', name: 'First Award Name — Competition or Program Title',  level: 'National' },
-  { year: '2023', name: 'Second Award Name — Competition Title',             level: 'National' },
-  { year: '2023', name: 'Third Award Name',                                  level: 'National' },
+  { year: '2025', name: 'National Scholarship — Ministry of Education, P.R. China', level: 'National' },
+  { year: '2025', name: 'Mathematical Contest in Modeling (MCM) — Finalist',         level: 'International' },
 ]
 
 export const projects = [
