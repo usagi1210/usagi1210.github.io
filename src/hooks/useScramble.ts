@@ -3,8 +3,8 @@ import { useCallback, useRef } from 'react'
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&'
 
-export function useScramble() {
-  const frameRef = useRef<number | null>(null)
+export function useScramble(interval = 55) {
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const scramble = useCallback(
     (el: HTMLElement | null, target: string, startDelay = 0) => {
@@ -26,20 +26,20 @@ export function useScramble() {
         }
         el.innerHTML = out
         frame++
-        if (frame <= total + 4) {
-          frameRef.current = requestAnimationFrame(run)
+        if (frame > total + 4) {
+          if (timerRef.current) clearInterval(timerRef.current)
         }
       }
 
       setTimeout(() => {
-        frameRef.current = requestAnimationFrame(run)
+        timerRef.current = setInterval(run, interval)
       }, startDelay)
     },
-    []
+    [interval]
   )
 
   const cancel = useCallback(() => {
-    if (frameRef.current) cancelAnimationFrame(frameRef.current)
+    if (timerRef.current) clearInterval(timerRef.current)
   }, [])
 
   return { scramble, cancel }
