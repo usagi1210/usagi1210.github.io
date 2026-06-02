@@ -11,6 +11,7 @@ import PublicationsSection from '@/components/PublicationsSection'
 import AwardsSection from '@/components/AwardsSection'
 import ProjectsSection from '@/components/ProjectsSection'
 import Footer from '@/components/Footer'
+import CVModal from '@/components/CVModal'
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <AwardsSection />
       <ProjectsSection />
       <Footer />
+      <CVModal />
     </main>
   )
 }

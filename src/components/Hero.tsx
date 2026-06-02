@@ -1,16 +1,66 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, scaleX } from '@/lib/motion'
 import { useScramble } from '@/hooks/useScramble'
 import { useMagneticButton } from '@/hooks/useMagneticButton'
 import { person } from '@/data/content'
 
+function EmailDropdown({ emails }: { emails: { label: string; addr: string }[] }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div
+      style={{ position: 'relative', display: 'inline-block' }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <span
+        style={{
+          padding: '11px 22px', background: 'transparent', color: 'var(--ink)',
+          fontFamily: 'var(--font-sans)', fontSize: '0.875rem', fontWeight: 400,
+          border: '1px solid var(--rule)', borderRadius: 2, textDecoration: 'none',
+          display: 'inline-flex', alignItems: 'center', gap: 5, cursor: 'default',
+          transition: 'border-color 0.2s',
+        }}
+      >
+        Email ↓
+      </span>
+      {open && (
+        <div style={{
+          position: 'absolute', top: 'calc(100% + 4px)', left: 0,
+          background: 'var(--bg)', border: '1px solid var(--rule)', borderRadius: 2,
+          minWidth: 260, zIndex: 50, overflow: 'hidden',
+        }}>
+          {emails.map(({ label, addr }) => (
+            <a
+              key={addr}
+              href={`mailto:${addr}`}
+              style={{
+                display: 'flex', flexDirection: 'column', gap: 2,
+                padding: '10px 16px', textDecoration: 'none', color: 'var(--ink)',
+                fontFamily: 'var(--font-sans)', borderBottom: '1px solid var(--rule)',
+                transition: 'background 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'oklch(0.97 0.005 55)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+            >
+              <span style={{ fontSize: '0.6875rem', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--muted)' }}>{label}</span>
+              <span style={{ fontSize: '0.8125rem', fontWeight: 300 }}>{addr}</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function Hero() {
   const nameYuanRef   = useRef<HTMLParagraphElement>(null)
   const nameJunhaoRef = useRef<HTMLParagraphElement>(null)
   const { scramble } = useScramble()
   const { btnRef, onMouseMove, onMouseLeave } = useMagneticButton(0.35)
+  const [photoHovered, setPhotoHovered] = useState(false)
 
   useEffect(() => {
     const t1 = setTimeout(() => scramble(nameYuanRef.current,   'YUAN',     0),   850)
@@ -39,6 +89,28 @@ export default function Hero() {
         position: 'relative',
       }}
     >
+      {/* Photo — right half, fades left-to-right */}
+      <div
+        onMouseEnter={() => setPhotoHovered(true)}
+        onMouseLeave={() => setPhotoHovered(false)}
+        style={{
+          position: 'absolute', right: 0, top: 0, bottom: 0, width: '52%',
+          overflow: 'hidden', zIndex: 0,
+          maskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
+          opacity: photoHovered ? 0.65 : 0.3,
+          transition: 'opacity 0.7s ease',
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/me.jpg"
+          alt=""
+          aria-hidden
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
+        />
+      </div>
+
       <motion.p
         variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
         style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-sans)', fontSize: '0.6875rem', fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 20 }}
@@ -84,31 +156,30 @@ export default function Hero() {
         style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}
       >
         <span onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} style={{ display: 'inline-block' }}>
-          <a
-            ref={btnRef as React.Ref<HTMLAnchorElement>}
-            href={person.cvUrl}
+          <button
+            ref={btnRef as React.Ref<HTMLButtonElement>}
+            onClick={() => window.dispatchEvent(new Event('cv-modal-open'))}
             style={{
               padding: '12px 26px', background: 'var(--red)', color: '#fff',
               fontFamily: 'var(--font-sans)', fontSize: '0.875rem', fontWeight: 600,
-              border: 'none', borderRadius: 2, textDecoration: 'none',
+              border: 'none', borderRadius: 2, cursor: 'pointer',
               display: 'inline-flex', alignItems: 'center', gap: 6,
               transition: 'background 0.2s',
             }}
           >
-            Download CV ↓
-          </a>
+            Request CV ↗
+          </button>
         </span>
 
         {[
           { label: 'GitHub ↗',         href: person.github },
           { label: 'Google Scholar ↗', href: person.scholar },
-          { label: 'Email',            href: `mailto:${person.email}` },
         ].map(({ label, href }) => (
           <a
             key={label}
             href={href}
-            target={href.startsWith('http') ? '_blank' : undefined}
-            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               padding: '11px 22px', background: 'transparent', color: 'var(--ink)',
               fontFamily: 'var(--font-sans)', fontSize: '0.875rem', fontWeight: 400,
@@ -120,6 +191,7 @@ export default function Hero() {
             {label}
           </a>
         ))}
+        <EmailDropdown emails={person.emails} />
       </motion.div>
     </section>
   )

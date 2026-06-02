@@ -4,6 +4,19 @@ import Image from 'next/image'
 import SectionWrapper from './SectionWrapper'
 import { awards } from '@/data/content'
 
+const LEVEL_RANK: Record<string, number> = {
+  International: 0,
+  National:      1,
+  Provincial:    2,
+  University:    3,
+}
+
+const sortedAwards = [...awards].sort((a, b) => {
+  const levelDiff = (LEVEL_RANK[a.level] ?? 99) - (LEVEL_RANK[b.level] ?? 99)
+  if (levelDiff !== 0) return levelDiff
+  return Number(b.year) - Number(a.year)
+})
+
 function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
@@ -71,7 +84,7 @@ export default function AwardsSection() {
     <>
       <SectionWrapper id="awards" label="Awards">
         <div>
-          {awards.map((a, i) => (
+          {sortedAwards.map((a, i) => (
             <div
               key={i}
               style={{

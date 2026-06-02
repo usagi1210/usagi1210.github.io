@@ -65,14 +65,12 @@ export default function Nav() {
           </li>
         ))}
         <li>
-          <a
-            href="/cv.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--muted)', textDecoration: 'none' }}
+          <button
+            onClick={() => window.dispatchEvent(new Event('cv-modal-open'))}
+            style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--muted)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           >
             CV ↓
-          </a>
+          </button>
         </li>
       </ul>
     </motion.nav>
