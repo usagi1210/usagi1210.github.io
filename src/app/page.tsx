@@ -3,6 +3,7 @@ import LoaderWipe from '@/components/LoaderWipe'
 import Spotlight from '@/components/Spotlight'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+import StatsRow from '@/components/StatsRow'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Spotlight />
       <Nav />
       <Hero />
+      <StatsRow />
     </main>
   )
 }
