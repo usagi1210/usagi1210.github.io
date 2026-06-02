@@ -1,3 +1,4 @@
+'use client'
 import SectionWrapper from './SectionWrapper'
 import { awards } from '@/data/content'
 
