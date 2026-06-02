@@ -9,16 +9,21 @@ export default function AwardsSection() {
         {awards.map((a, i) => (
           <div
             key={i}
-            style={{ display: 'flex', alignItems: 'baseline', gap: 16, padding: '15px 0', borderBottom: '1px solid var(--rule)', cursor: 'default', transition: 'padding-left 0.2s' }}
+            style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '15px 0', borderBottom: '1px solid var(--rule)', cursor: 'default', transition: 'padding-left 0.2s' }}
             onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.paddingLeft = '8px' }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.paddingLeft = '0' }}
           >
             <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', color: 'var(--muted)', fontVariantNumeric: 'tabular-nums', width: 36, flexShrink: 0 }}>
               {a.year}
             </span>
-            <span style={{ fontFamily: 'var(--font-serif)', fontSize: '0.9375rem', fontWeight: 400, flex: 1, lineHeight: 1.4, transition: 'color 0.2s' }}>
-              {a.name}
-            </span>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <span style={{ fontFamily: 'var(--font-serif)', fontSize: '0.9375rem', fontWeight: 400, lineHeight: 1.4, transition: 'color 0.2s' }}>
+                {a.name}
+              </span>
+              <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8125rem', fontWeight: 300, color: 'var(--muted)', lineHeight: 1.4 }}>
+                {a.nameZh}
+              </span>
+            </div>
             <span style={{
               fontFamily: 'var(--font-display)', fontSize: '0.625rem', fontWeight: 700,
               letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff',

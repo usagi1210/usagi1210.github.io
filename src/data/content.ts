@@ -74,8 +74,18 @@ export const publications = [
 ]
 
 export const awards = [
-  { year: '2025', name: 'National Scholarship — Ministry of Education, P.R. China', level: 'National' },
-  { year: '2025', name: 'Mathematical Contest in Modeling (MCM) — Finalist',         level: 'International' },
+  {
+    year: '2025',
+    name: 'National Scholarship — Ministry of Education, P.R. China',
+    nameZh: '国家奖学金 — 中华人民共和国教育部',
+    level: 'National',
+  },
+  {
+    year: '2025',
+    name: 'Mathematical Contest in Modeling (MCM) — Finalist',
+    nameZh: '美国大学生数学建模竞赛 — F 奖',
+    level: 'International',
+  },
 ]
 
 export const projects = [
