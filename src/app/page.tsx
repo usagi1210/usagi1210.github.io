@@ -6,6 +6,7 @@ import Hero from '@/components/Hero'
 import StatsRow from '@/components/StatsRow'
 import Marquee from '@/components/Marquee'
 import ResearchSection from '@/components/ResearchSection'
+import EducationSection from '@/components/EducationSection'
 import PublicationsSection from '@/components/PublicationsSection'
 import AwardsSection from '@/components/AwardsSection'
 import ProjectsSection from '@/components/ProjectsSection'
@@ -22,6 +23,7 @@ export default function Home() {
       <StatsRow />
       <Marquee />
       <ResearchSection />
+      <EducationSection />
       <PublicationsSection />
       <AwardsSection />
       <ProjectsSection />

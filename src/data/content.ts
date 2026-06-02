@@ -1,14 +1,35 @@
 export const person = {
   nameEn: 'Yuan Junhao',
   nameCn: '袁俊豪',
-  eyebrow: 'Computer Vision · Computational Imaging · Class of 2026',
-  subtitle: 'Undergraduate researcher — Intelligent Science & Technology',
+  eyebrow: 'Computer Vision · Computational Imaging',
+  subtitle: 'Visiting Student @ SCI Lab, Westlake University · B.Eng. Candidate, Hangzhou Dianzi University',
   bio: 'I study how cameras and algorithms can be co-designed to capture and understand the visual world more faithfully. Currently working on neural scene representations, low-level restoration, and the physics of imaging systems.',
-  email: 'yuanjunhao@university.edu',
+  email: 'yuanjunhao1210@gmail.com',
   github: 'https://github.com/yuanjunhao',
   scholar: 'https://scholar.google.com',
   cvUrl: '/cv.pdf',
 }
+
+export const education = [
+  {
+    period: '2026.02 – 2026.06',
+    institution: 'Westlake University',
+    institutionZh: '西湖大学',
+    department: 'School of Engineering · SCI Lab',
+    departmentZh: '工学院 · 感知与计算成像实验室',
+    role: 'Visiting Student',
+    current: true,
+  },
+  {
+    period: '2023.09 – Present',
+    institution: 'Hangzhou Dianzi University',
+    institutionZh: '杭州电子科技大学',
+    department: 'School of Automation (College of Artificial Intelligence)',
+    departmentZh: '自动化学院（人工智能学院）',
+    role: 'B.Eng. in Intelligent Science & Technology',
+    current: true,
+  },
+]
 
 export const stats = [
   { value: 1,  label: 'Publication' },
