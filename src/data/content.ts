@@ -3,7 +3,7 @@ export const person = {
   nameCn: '袁俊豪',
   eyebrow: 'Computer Vision · Computational Imaging',
   subtitle: 'Visiting Student @ SCI Lab, Westlake University · B.Eng. Candidate, Hangzhou Dianzi University',
-  bio: 'I study how cameras and algorithms can be co-designed to capture and understand the visual world more faithfully. Currently working on neural scene representations, low-level restoration, and the physics of imaging systems.',
+  bio: 'I am Yuan Junhao, a junior student majoring in Intelligent Science and Technology. I am filled with a strong desire to explore both the fields of computer vision and computational imaging, and I aspire to achieve remarkable accomplishments in the future!',
   emails: [
     { label: 'Educational', addr: '23061739@hdu.edu.cn' },
     { label: 'Gmail',       addr: 'yuanjunhao1210@gmail.com' },
@@ -145,7 +145,7 @@ export const projects = [
     name: 'CASSI-116 Benchmark',
     zh: '116 通道高光谱 CASSI 成像基准算法设计',
     desc: 'Spectral reconstruction algorithms for a 116-channel hyperspectral imaging benchmark built on the CASSI coded-aperture architecture.',
-    tags: ['PyTorch', 'CASSI', 'Hyperspectral', 'In Progress'],
+    tags: ['PyTorch', 'CASSI', 'Hyperspectral', 'In Progress', 'Private'],
     url: 'https://github.com/usagi1210/CASSI_116',
   },
   {

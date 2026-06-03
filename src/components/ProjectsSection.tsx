@@ -6,7 +6,7 @@ import { projects } from '@/data/content'
 const FRAMEWORK_TAGS = new Set(['Python', 'PyTorch', 'CUDA', 'OpenCV', 'NumPy', 'Dobot Magician'])
 
 function tagStyle(tag: string): React.CSSProperties {
-  if (tag === 'In Progress')
+  if (tag === 'In Progress' || tag === 'Private')
     return { color: 'var(--muted)', border: '1px solid var(--rule)', background: 'transparent' }
   if (FRAMEWORK_TAGS.has(tag))
     return { color: 'oklch(0.42 0.10 240)', border: '1px solid oklch(0.78 0.07 240)', background: 'oklch(0.95 0.02 240)' }
