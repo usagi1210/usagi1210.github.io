@@ -55,7 +55,7 @@ export default function CVModal() {
         </p>
 
         <a
-          href={`mailto:${person.emails[0].addr}?subject=CV%20Request`}
+          href={`mailto:${person.emails[0].addr}`}
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '11px 22px', background: 'var(--red)', color: '#fff',
