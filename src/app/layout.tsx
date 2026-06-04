@@ -4,7 +4,7 @@ import './globals.css'
 
 const bigShoulders = Big_Shoulders({
   subsets: ['latin'],
-  weight: ['400', '700', '900'],
+  axes: ['opsz'],
   variable: '--font-display',
   display: 'swap',
 })

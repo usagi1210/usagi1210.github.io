@@ -37,6 +37,13 @@ body {
   body { cursor: auto; }
 }
 
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.tw-cursor       { display: inline-block; margin-left: 1px; }
+.tw-cursor--idle { animation: tw-blink 0.72s ease-in-out infinite; }
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

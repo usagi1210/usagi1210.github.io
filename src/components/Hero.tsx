@@ -5,12 +5,21 @@ import { fadeUp, scaleX } from '@/lib/motion'
 import { useScramble } from '@/hooks/useScramble'
 import { useMagneticButton } from '@/hooks/useMagneticButton'
 import { person } from '@/data/content'
+import VariableProximity from './VariableProximity'
+import TypewriterText from './TypewriterText'
+
+// Scramble timing (ms):
+// YUAN   (4 chars): start=850,  run=4*6*55=1320, done≈2200
+// JUNHAO.(7 chars): start=1030, run=7*6*55=2310, done≈3340
+// Crossfade triggers at 3600 (safe margin after both finish)
+const CROSSFADE_DELAY = 3600
 
 function EmailDropdown({ emails }: { emails: { label: string; addr: string }[] }) {
   const [open, setOpen] = useState(false)
 
   return (
     <div
+      className="cursor-target"
       style={{ position: 'relative', display: 'inline-block' }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
@@ -56,16 +65,20 @@ function EmailDropdown({ emails }: { emails: { label: string; addr: string }[] }
 }
 
 export default function Hero() {
+  const sectionRef    = useRef<HTMLElement>(null)
   const nameYuanRef   = useRef<HTMLParagraphElement>(null)
   const nameJunhaoRef = useRef<HTMLParagraphElement>(null)
-  const { scramble } = useScramble()
+  const { scramble }  = useScramble()
   const { btnRef, onMouseMove, onMouseLeave } = useMagneticButton(0.35)
   const [photoHovered, setPhotoHovered] = useState(false)
+  const [scrambleDone, setScrambleDone] = useState(false)
+  const [bioZh, setBioZh] = useState(false)
 
   useEffect(() => {
     const t1 = setTimeout(() => scramble(nameYuanRef.current,   'YUAN',     0),   850)
     const t2 = setTimeout(() => scramble(nameJunhaoRef.current, 'JUNHAO.', 180),  850)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    const t3 = setTimeout(() => setScrambleDone(true), CROSSFADE_DELAY)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [scramble])
 
   const nameStyle: React.CSSProperties = {
@@ -76,11 +89,17 @@ export default function Hero() {
     letterSpacing: '0.01em',
     textTransform: 'uppercase',
     display: 'block',
-    minHeight: '1em',
+    margin: 0,
   }
+
+  const fade = (done: boolean): React.CSSProperties => ({
+    opacity: done ? 1 : 0,
+    transition: 'opacity 0.5s ease',
+  })
 
   return (
     <section
+      ref={sectionRef as React.Ref<HTMLElement>}
       style={{
         minHeight: '100vh',
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
@@ -126,8 +145,53 @@ export default function Hero() {
         Hi, I&apos;m
       </motion.p>
 
-      <p ref={nameYuanRef}   aria-label="Yuan"    style={{ ...nameStyle, color: 'var(--ink)' }} />
-      <p ref={nameJunhaoRef} aria-label="Junhao." style={{ ...nameStyle, color: 'var(--red)', marginBottom: 24 }} />
+      {/* YUAN — scramble fades out, VariableProximity fades in */}
+      <div style={{ position: 'relative' }}>
+        <p style={{ ...nameStyle, color: 'var(--ink)', ...fade(scrambleDone) }}>
+          <VariableProximity
+            label="YUAN"
+            fromFontVariationSettings="'wght' 700, 'opsz' 14"
+            toFontVariationSettings="'wght' 900, 'opsz' 72"
+            containerRef={sectionRef as React.RefObject<HTMLElement>}
+            radius={220}
+            falloff="linear"
+          />
+        </p>
+        <p
+          ref={nameYuanRef}
+          aria-label="Yuan"
+          style={{
+            ...nameStyle, color: 'var(--ink)',
+            position: 'absolute', top: 0, left: 0, right: 0,
+            pointerEvents: 'none',
+            ...fade(!scrambleDone),
+          }}
+        />
+      </div>
+
+      {/* JUNHAO. — scramble fades out, VariableProximity fades in */}
+      <div style={{ position: 'relative', marginBottom: 24 }}>
+        <p style={{ ...nameStyle, color: 'var(--red)', ...fade(scrambleDone) }}>
+          <VariableProximity
+            label="JUNHAO."
+            fromFontVariationSettings="'wght' 700, 'opsz' 14"
+            toFontVariationSettings="'wght' 900, 'opsz' 72"
+            containerRef={sectionRef as React.RefObject<HTMLElement>}
+            radius={220}
+            falloff="linear"
+          />
+        </p>
+        <p
+          ref={nameJunhaoRef}
+          aria-label="Junhao."
+          style={{
+            ...nameStyle, color: 'var(--red)',
+            position: 'absolute', top: 0, left: 0, right: 0,
+            pointerEvents: 'none',
+            ...fade(!scrambleDone),
+          }}
+        />
+      </div>
 
       <motion.p
         variants={fadeUp} initial="hidden" animate="visible" custom={0.85}
@@ -141,15 +205,29 @@ export default function Hero() {
         style={{ height: 1, background: 'var(--rule)', marginBottom: 18, width: 40 }}
       />
 
-      <motion.p
+      <motion.div
         variants={fadeUp} initial="hidden" animate="visible" custom={0.98}
-        style={{ fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: '0.9375rem', lineHeight: 1.82, maxWidth: '50ch', marginBottom: 28 }}
-        dangerouslySetInnerHTML={{
-          __html: person.bio
-            .replace('co-designed', '<em>co-designed</em>')
-            .replace('neural scene representations', '<strong>neural scene representations</strong>')
-        }}
-      />
+        style={{ position: 'relative', maxWidth: '50ch', marginBottom: 28 }}
+        onMouseEnter={() => setBioZh(true)}
+        onMouseLeave={() => setBioZh(false)}
+      >
+        <p style={{
+          fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: '0.9375rem',
+          lineHeight: 1.82, minHeight: '5.46em', textAlign: 'justify',
+          opacity: bioZh ? 0 : 1, transition: 'opacity 0.35s ease',
+        }}>
+          <TypewriterText text={person.bio} delay={1600} speed={22} jitter={10} />
+        </p>
+        <p style={{
+          position: 'absolute', top: 0, left: 0, right: 0,
+          fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: '0.9375rem',
+          lineHeight: 1.82, textAlign: 'justify',
+          opacity: bioZh ? 1 : 0, transition: 'opacity 0.35s ease',
+          pointerEvents: 'none', color: 'var(--ink)',
+        }}>
+          {person.bioZh}
+        </p>
+      </motion.div>
 
       <motion.div
         variants={fadeUp} initial="hidden" animate="visible" custom={1.06}
@@ -180,6 +258,7 @@ export default function Hero() {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
+            className="cursor-target"
             style={{
               padding: '11px 22px', background: 'transparent', color: 'var(--ink)',
               fontFamily: 'var(--font-sans)', fontSize: '0.875rem', fontWeight: 400,

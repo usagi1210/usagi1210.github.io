@@ -10,69 +10,81 @@ export default function EducationSection() {
             key={i}
             style={{
               display: 'grid',
-              gridTemplateColumns: '120px 1fr',
+              gridTemplateColumns: '90px 1fr',
               gap: '0 24px',
               padding: '22px 0',
               borderBottom: '1px solid var(--rule)',
               alignItems: 'start',
             }}
           >
-            {/* Period */}
-            <span
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.75rem',
-                fontWeight: 400,
-                color: 'var(--muted)',
-                lineHeight: 1.6,
-                paddingTop: 2,
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {edu.period}
-            </span>
+            {/* Logo */}
+            <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 2 }}>
+              {edu.logo && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={edu.logo}
+                  alt={edu.institution}
+                  style={{ width: 72, height: 72, objectFit: 'contain', display: 'block' }}
+                />
+              )}
+            </div>
 
             {/* Content */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 3, flexWrap: 'wrap' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    color: 'var(--ink)',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {edu.institution}
-                </span>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10, marginBottom: 3, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      color: 'var(--ink)',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {edu.institution}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '0.8125rem',
+                      fontWeight: 300,
+                      color: 'var(--muted)',
+                    }}
+                  >
+                    {edu.institutionZh}
+                  </span>
+                  {edu.current && (
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '0.5625rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: '#fff',
+                        background: 'var(--red)',
+                        padding: '2px 7px',
+                        borderRadius: 2,
+                      }}
+                    >
+                      Current
+                    </span>
+                  )}
+                </div>
                 <span
                   style={{
                     fontFamily: 'var(--font-sans)',
-                    fontSize: '0.8125rem',
-                    fontWeight: 300,
+                    fontSize: '0.75rem',
+                    fontWeight: 400,
                     color: 'var(--muted)',
+                    lineHeight: 1.6,
+                    fontVariantNumeric: 'tabular-nums',
+                    flexShrink: 0,
                   }}
                 >
-                  {edu.institutionZh}
+                  {edu.period}
                 </span>
-                {edu.current && (
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '0.5625rem',
-                      fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      color: '#fff',
-                      background: 'var(--red)',
-                      padding: '2px 7px',
-                      borderRadius: 2,
-                    }}
-                  >
-                    Current
-                  </span>
-                )}
               </div>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap', marginBottom: 2 }}>

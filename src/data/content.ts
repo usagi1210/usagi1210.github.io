@@ -3,7 +3,8 @@ export const person = {
   nameCn: '袁俊豪',
   eyebrow: 'Computer Vision · Computational Imaging',
   subtitle: 'Visiting Student @ SCI Lab, Westlake University · B.Eng. Candidate, Hangzhou Dianzi University',
-  bio: 'I am Yuan Junhao, a junior student majoring in Intelligent Science and Technology. I am filled with a strong desire to explore both the fields of computer vision and computational imaging, and I aspire to achieve remarkable accomplishments in the future!',
+  bio: 'Broadly interested in computational imaging and computer vision — curious about how optics, hardware, and algorithms combine to reshape what machines can perceive. Here\'s hoping the work adds up to something. Always happy to chat over ideas or a coffee!',
+  bioZh: '我对计算机视觉与计算成像领域有着广泛的兴趣——好奇光学、硬件与算法如何协同工作，重塑机器的感知方式。希望自己做的这些工作能对领域产生一些意义。随时欢迎来交流想法，或一起喝杯咖啡聊聊天！',
   emails: [
     { label: 'Educational', addr: '23061739@hdu.edu.cn' },
     { label: 'Gmail',       addr: 'yuanjunhao1210@gmail.com' },
@@ -24,6 +25,7 @@ export const education = [
     role: 'Visiting Student',
     roleZh: '访问学生',
     current: true,
+    logo: '/logos/westlake.png',
   },
   {
     period: '2023.09 – Present',
@@ -34,6 +36,7 @@ export const education = [
     role: 'B.Eng. in Intelligent Science & Technology',
     roleZh: '智能科学与技术 本科',
     current: true,
+    logo: '/logos/hdu.png',
   },
 ]
 
