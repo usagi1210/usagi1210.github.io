@@ -1,7 +1,15 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Brainstorming / agent artifacts
+# Local planning, reference material, and agent artifacts
+.claude/
 .superpowers/
+awards/
+docs/
+project/
+research/
+AGENTS.md
+CLAUDE.md
+PRODUCT.md
 
 # dependencies
 /node_modules
