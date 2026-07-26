@@ -1,10 +1,10 @@
 export const person = {
   nameEn: 'Yuan Junhao',
   nameCn: '袁俊豪',
-  eyebrow: 'Computer Vision · Computational Imaging',
+  eyebrow: 'AI for Science',
   subtitle: 'Visiting Student @ SCI Lab, Westlake University · B.Eng. Candidate, Hangzhou Dianzi University',
-  bio: 'Broadly interested in computational imaging and computer vision — curious about how optics, hardware, and algorithms combine to reshape what machines can perceive. Here\'s hoping the work adds up to something. Always happy to chat over ideas or a coffee!',
-  bioZh: '我对计算机视觉与计算成像领域有着广泛的兴趣——好奇光学、硬件与算法如何协同工作，重塑机器的感知方式。希望自己做的这些工作能对领域产生一些意义。随时欢迎来交流想法，或一起喝杯咖啡聊聊天！',
+  bio: 'Broadly interested in AI for Science, especially how learning-based, generative, and agentic systems can support scientific discovery. I hope to explore how foundation models and AI agents can help researchers reason, experiment, and create more effectively. Here\'s hoping the work adds up to something. Always happy to chat over ideas or a coffee!',
+  bioZh: '我广泛关注 AI for Science，尤其是学习方法、生成式模型与智能体系统如何支持科学发现。我希望探索基础模型和 AI 智能体如何帮助研究者更高效地推理、实验与创造。希望这些工作终能积少成多、有所意义。随时欢迎交流想法，或一起喝杯咖啡！',
   emails: [
     { label: 'Educational', addr: '23061739@hdu.edu.cn' },
     { label: 'Gmail',       addr: 'yuanjunhao1210@gmail.com' },
@@ -48,24 +48,28 @@ export const stats = [
 
 export const interests = [
   {
-    name: 'Computer Vision',
-    zh: '计算机视觉',
-    desc: 'Building systems that see and understand the visual world; recognition, detection, and scene understanding.',
+    name: 'AI for Science',
+    zh: '人工智能驱动科学发现',
+    desc: 'Exploring how artificial intelligence can make scientific discovery more efficient, reliable, and accessible across disciplines.',
+    descZh: '探索人工智能如何在跨学科场景中，让科学发现更高效、更可靠、更可及。',
   },
   {
-    name: 'Compressive Sensing',
-    zh: '压缩感知',
-    desc: 'Recovering high-dimensional signals from far fewer measurements than Nyquist by exploiting sparsity priors.',
+    name: 'Intelligent Agents',
+    zh: '智能体系统',
+    desc: 'Interested in agentic systems that can reason, plan, use tools, and collaborate with people on complex research workflows.',
+    descZh: '关注能够推理、规划、调用工具并与人协作的智能体系统，用于支持复杂科研流程。',
+  },
+  {
+    name: 'Computer Vision',
+    zh: '计算机视觉',
+    desc: 'Building systems that see and understand visual data, enabling perception, recognition, and scene understanding.',
+    descZh: '构建能够感知与理解视觉信息的智能系统，涵盖感知、识别与场景理解。',
   },
   {
     name: 'Computational Imaging',
     zh: '计算成像',
-    desc: 'Rethinking the optical–digital pipeline; co-designing optics and algorithms for beyond-conventional sensing.',
-  },
-  {
-    name: 'Snapshot Compressive Imaging',
-    zh: '快照压缩成像',
-    desc: 'Snapshot multiplexed acquisition systems that encode high-dimensional visual signals into single 2D measurements.',
+    desc: 'Exploring the co-design of optics, sensing, and algorithms to extend what imaging systems can capture and infer.',
+    descZh: '探索光学、感知与算法的协同设计，拓展成像系统的采集与推断能力。',
   },
 ]
 
@@ -161,9 +165,9 @@ export const projects = [
 ]
 
 export const marqueeItems = [
-  'SNAPSHOT COMPRESSIVE IMAGING',
+  'AI FOR SCIENCE',
   'COMPUTER VISION',
-  'COMPUTATIONAL IMAGING',
-  'COMPRESSIVE SENSING',
-  'CASSI',
+  'INTELLIGENT AGENTS',
+  'GENERATIVE AI',
+  'SCIENTIFIC DISCOVERY',
 ]
