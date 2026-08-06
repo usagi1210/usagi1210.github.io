@@ -1,10 +1,10 @@
 export const person = {
   nameEn: 'Yuan Junhao',
   nameCn: '袁俊豪',
-  eyebrow: 'AI for Science',
+  eyebrow: 'AI for World Understanding',
   subtitle: 'Visiting Student @ SCI Lab, Westlake University · B.Eng. Candidate, Hangzhou Dianzi University',
-  bio: 'Broadly interested in AI for Science, especially how learning-based, generative, and agentic systems can support scientific discovery. I hope to explore how foundation models and AI agents can help researchers reason, experiment, and create more effectively. Here\'s hoping the work adds up to something. Always happy to chat over ideas or a coffee!',
-  bioZh: '我广泛关注 AI for Science，尤其是学习方法、生成式模型与智能体系统如何支持科学发现。我希望探索基础模型和 AI 智能体如何帮助研究者更高效地推理、实验与创造。希望这些工作终能积少成多、有所意义。随时欢迎交流想法，或一起喝杯咖啡！',
+  bio: 'Broadly interested in building AI systems that can perceive and truly understand the world. I hope to explore how computer vision, world models, generative AI, and intelligent agents can advance more capable machine intelligence with a deeper understanding of the real world. Here\'s hoping my future work adds up to something. Always happy to chat over ideas or a coffee!',
+  bioZh: '我广泛关注如何构建能够感知并真正理解世界的人工智能系统。我希望探索计算机视觉、世界模型、生成式人工智能与智能体如何推动更强大、更具真实世界理解能力的机器智能。希望我未来的工作能积少成多、有所意义。随时欢迎交流想法，或一起喝杯咖啡！',
   emails: [
     { label: 'Educational', addr: '23061739@hdu.edu.cn' },
     { label: 'Gmail',       addr: 'yuanjunhao1210@gmail.com' },
@@ -48,22 +48,22 @@ export const stats = [
 
 export const interests = [
   {
-    name: 'AI for Science',
-    zh: '人工智能驱动科学发现',
-    desc: 'Exploring how artificial intelligence can make scientific discovery more efficient, reliable, and accessible across disciplines.',
-    descZh: '探索人工智能如何在跨学科场景中，让科学发现更高效、更可靠、更可及。',
+    name: 'Computer Vision',
+    zh: '计算机视觉',
+    desc: 'Exploring systems that perceive and understand visual information, connecting visual perception with higher-level reasoning about the world.',
+    descZh: '探索能够感知与理解视觉信息的系统，连接视觉感知与更高层次的世界推理。',
+  },
+  {
+    name: 'World Models',
+    zh: '世界模型',
+    desc: 'Learning structured, predictive representations of the world that support understanding, reasoning, and decision-making.',
+    descZh: '学习结构化、可预测的世界表征，以支持理解、推理与决策。',
   },
   {
     name: 'Intelligent Agents',
     zh: '智能体系统',
-    desc: 'Interested in agentic systems that can reason, plan, use tools, and collaborate with people on complex research workflows.',
-    descZh: '关注能够推理、规划、调用工具并与人协作的智能体系统，用于支持复杂科研流程。',
-  },
-  {
-    name: 'Computer Vision',
-    zh: '计算机视觉',
-    desc: 'Building systems that see and understand visual data, enabling perception, recognition, and scene understanding.',
-    descZh: '构建能够感知与理解视觉信息的智能系统，涵盖感知、识别与场景理解。',
+    desc: 'Exploring how agents can reason, plan, use tools, and act over long horizons in complex digital and real-world environments.',
+    descZh: '探索智能体如何在复杂的数字与真实世界环境中进行长期推理、规划、调用工具与行动。',
   },
   {
     name: 'Computational Imaging',
@@ -165,9 +165,9 @@ export const projects = [
 ]
 
 export const marqueeItems = [
-  'AI FOR SCIENCE',
+  'AI FOR WORLD UNDERSTANDING',
   'COMPUTER VISION',
-  'INTELLIGENT AGENTS',
+  'WORLD MODELS',
   'GENERATIVE AI',
-  'SCIENTIFIC DISCOVERY',
+  'INTELLIGENT AGENTS',
 ]
